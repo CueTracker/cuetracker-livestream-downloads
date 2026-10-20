@@ -21,11 +21,14 @@ jobs:
       SOURCE_SHA256: ${{ inputs.source_sha256 }}
     steps:
       - name: Fetch the approved release source
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
           [[ "$SOURCE_SHA256" =~ ^[0-9a-f]{64}$ ]]
-          curl --fail --location --proto '=https' --proto-redir '=https' \
-            "https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/v$VERSION/camera-studio.zip" -o source.zip
+          gh release download "v$VERSION" --repo CueTracker/cuetracker-livestream-downloads \
+            --pattern camera-studio.zip --dir .
+          mv camera-studio.zip source.zip
           echo "$SOURCE_SHA256  source.zip" | sha256sum --check
           unzip -q source.zip
       - uses: docker/login-action@v3
