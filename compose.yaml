@@ -1,0 +1,16 @@
+services:
+  livestream:
+    image: ghcr.io/kenno7/cuetracker-livestream:3.0.0
+    container_name: cuetracker-livestream
+    restart: unless-stopped
+    # Linux hosts: native LAN discovery and independently assigned stream ports.
+    network_mode: host
+    volumes:
+      - cuetracker-data:/data
+    # USB camera: uncomment these and use your host's video group ID.
+    # devices:
+    #   - /dev/video0:/dev/video0
+    # group_add:
+    #   - "44"
+volumes:
+  cuetracker-data:
