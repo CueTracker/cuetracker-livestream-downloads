@@ -2,6 +2,8 @@
 
 Official Windows and Linux downloads and a local Docker image. Camera video, screenshots and model training stay on your own computer or server.
 
+The source repository is private. Public releases contain the compiled Windows and Linux applications; the Docker image is assembled from the same signed compiled Linux application and does not contain the raw CueTracker Python source or test suite.
+
 - [Downloads](https://github.com/CueTracker/cuetracker-livestream-downloads/releases)
 - [Quick Start Guide](https://livestream.cuetracker.app/guide.html)
 - [Linux and Docker instructions](https://livestream.cuetracker.app/self-host.html)
