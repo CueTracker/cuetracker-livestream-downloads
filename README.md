@@ -5,7 +5,7 @@ Official Windows and Linux downloads and a local Docker image. Camera video, scr
 - [Downloads](https://github.com/CueTracker/cuetracker-livestream-downloads/releases)
 - [Quick Start Guide](https://livestream.cuetracker.app/guide.html)
 - [Linux and Docker instructions](https://livestream.cuetracker.app/self-host.html)
-- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — available now. The 3.2 update is under Microsoft certification. The portable Windows ZIP remains unsigned.
+- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — available now. The portable Windows ZIP remains unsigned.
 
 ## Docker on Linux (AMD64 / x86_64)
 
@@ -14,7 +14,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.2.0
+  ghcr.io/cuetracker/livestream:3.3.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
@@ -34,7 +34,7 @@ This is CueTracker's GitHub distribution repository, not an Ubuntu/Debian packag
 
 ## Local models and backups
 
-Each camera keeps separate red/yellow and numbered-ball models. Numbered models can distinguish individual numbers for Kelly Pool, or group solids and stripes. Train from labelled camera screenshots and test fresh arrangements; no pretrained model for your camera is claimed.
+Each camera keeps separate Reds, Yellows, Black + White and Numbered Set models. Numbered models distinguish individual numbers 1–15 for Kelly Pool. Train from labelled camera screenshots and test fresh arrangements; no pretrained model for your camera is claimed.
 
 SAVE BACKUP includes every managed camera, connection, model version, screenshot, label, calibration and saved setup in an encrypted `.ctbackup`. Keep the password safe. RESTORE BACKUP adds new workspaces without overwriting existing cameras.
 
