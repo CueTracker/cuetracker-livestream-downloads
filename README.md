@@ -14,7 +14,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.3.0
+  ghcr.io/cuetracker/livestream:3.4.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
