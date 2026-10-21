@@ -6,8 +6,8 @@ on:
         description: Published release version, without v
         required: true
         type: string
-      source_sha256:
-        description: Verified SHA256 of the released camera-studio.zip
+      binary_sha256:
+        description: SHA256 of the signed Linux application archive
         required: true
         type: string
 permissions:
@@ -18,19 +18,30 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VERSION: ${{ inputs.version }}
-      SOURCE_SHA256: ${{ inputs.source_sha256 }}
+      BINARY_SHA256: ${{ inputs.binary_sha256 }}
     steps:
-      - name: Fetch the approved release source
+      - uses: actions/checkout@v4
+      - name: Fetch and verify the compiled Linux application
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
-          [[ "$SOURCE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$BINARY_SHA256" =~ ^[0-9a-f]{64}$ ]]
           gh release download "v$VERSION" --repo CueTracker/cuetracker-livestream-downloads \
-            --pattern camera-studio.zip --dir .
-          mv camera-studio.zip source.zip
-          echo "$SOURCE_SHA256  source.zip" | sha256sum --check
-          unzip -q source.zip
+            --pattern CueTrackerCameraStudio-Linux-x86_64.tar.gz \
+            --pattern CueTrackerCameraStudio-Linux-x86_64.tar.gz.asc \
+            --pattern cuetracker-release-signing.asc --dir .
+          echo "$BINARY_SHA256  CueTrackerCameraStudio-Linux-x86_64.tar.gz" | sha256sum --check
+          fingerprint=$(gpg --batch --with-colons --show-keys cuetracker-release-signing.asc | awk -F: '$1=="fpr"{print $10;exit}')
+          test "$fingerprint" = A7382368221F944CB6A247C04E21DF504C446489
+          gpg --batch --yes --dearmor --output "$RUNNER_TEMP/cuetracker-release.gpg" cuetracker-release-signing.asc
+          gpgv --keyring "$RUNNER_TEMP/cuetracker-release.gpg" \
+            CueTrackerCameraStudio-Linux-x86_64.tar.gz.asc \
+            CueTrackerCameraStudio-Linux-x86_64.tar.gz
+          tar -xzf CueTrackerCameraStudio-Linux-x86_64.tar.gz
+          for source in server.py launcher.py vision.py training.py setup_backup.py; do
+            test ! -e "CueTrackerCameraStudio/$source"
+          done
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -38,10 +49,17 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and test before publishing
         run: |
-          docker build -f cuetracker-camera-studio/Dockerfile.local \
-            -t "ghcr.io/cuetracker/livestream:$VERSION" cuetracker-camera-studio
+          docker build -f Dockerfile -t "ghcr.io/cuetracker/livestream:$VERSION" .
+          docker run --rm --entrypoint sh "ghcr.io/cuetracker/livestream:$VERSION" \
+            -c 'test ! -e /opt/cuetracker/server.py && test ! -e /opt/cuetracker/launcher.py'
           docker run -d --name studio-test --network host "ghcr.io/cuetracker/livestream:$VERSION"
           for n in $(seq 1 30); do curl --fail --silent http://127.0.0.1:8765/healthz > /tmp/health.json && break; sleep 1; done
           python -c "import json,os; h=json.load(open('/tmp/health.json')); assert h['version']==os.environ['VERSION'] and h['local_only']"
           docker stop studio-test
           docker push "ghcr.io/cuetracker/livestream:$VERSION"
+      - name: Remove replaced untagged container versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: livestream
+          package-type: container
+          delete-only-untagged-versions: true
