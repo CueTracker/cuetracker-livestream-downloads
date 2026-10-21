@@ -39,4 +39,3 @@ Each camera keeps separate Reds, Yellows, Black + White and Numbered Set models.
 SAVE BACKUP includes every managed camera, connection, model version, screenshot, label, calibration and saved setup in an encrypted `.ctbackup`. Keep the password safe. RESTORE BACKUP adds new workspaces without overwriting existing cameras.
 
 Closing your browser leaves the app running. Stop app or the tray Quit action stops managed cameras. Start the app again to restore its saved camera sessions.
-
