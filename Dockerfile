@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.title="CueTracker LiveStream"
 LABEL org.opencontainers.image.source="https://github.com/CueTracker/cuetracker-livestream-downloads"
 
 RUN apt-get update \
-    && apt-get install --yes --no-install-recommends ca-certificates curl libglib2.0-0 libgomp1 \
+    && apt-get install --yes --no-install-recommends ca-certificates curl ffmpeg libglib2.0-0 libgomp1 \
     && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 1000 studio \
     && mkdir /data \
