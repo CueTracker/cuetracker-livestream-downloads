@@ -17,7 +17,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.10.0
+  ghcr.io/cuetracker/livestream:3.11.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
@@ -45,6 +45,6 @@ Closing your browser leaves the app running. Stop app or the tray Quit action st
 
 ## Android phone camera test
 
-The [CueTracker Phone Camera v0.2 test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.2/CueTrackerPhoneCamera-test-v0.2.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It uses CueTracker's persistent test-release signer. Open it on the phone, grant Camera access, tap **Start phone camera**, then select **Android phone with CueTracker Phone Camera** in the desktop app. No Android Studio is needed. If v0.1 cannot update, uninstall it once before installing v0.2. The new build still needs a Galaxy S21 / Android 16 device check.
+The [CueTracker Phone Camera v0.3 test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.3/CueTrackerPhoneCamera-test-v0.3.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It is a separate companion, not the desktop setup or broadcasting app. Open it on the phone, grant Camera access, choose a supported camera/quality, tap **START PHONE CAMERA**, then find the phone in LiveStream. No Android Studio is needed. It uses the same signer as v0.2 and can update it in place. The new build still needs a Galaxy S21 / Android 16 device check. See the [dedicated phone guide](https://livestream.cuetracker.app/phone-setup.html).
 
-The v3.10.0 app fixes phone JPEG feeds, preserves source credentials and adds a real outer-table outline, optional unknown-ball markers and clearer broadcast controls. Broadcasting requires a Start click. 8 Ball's per-camera pairing, card checkout without Link and repeatable Site Admin demo videos are on staging. Previous releases remain available.
+The v3.11.0 app guides physical-table marking before the playing cloth, preserves saved settings, puts viewing controls after Finish, and improves gallery/fullscreen and phone setup. Broadcasting requires a Start click. Shared YouTube sign-in is prepared but still needs CueTracker's owner Google registration; stream-key broadcasting remains available. 8 Ball's per-camera pairing, card checkout without Link and repeatable Site Admin demo videos are on staging. Previous releases remain available.
