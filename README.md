@@ -7,7 +7,8 @@ The source repository is private. Public releases contain the compiled Windows a
 - [Downloads](https://github.com/CueTracker/cuetracker-livestream-downloads/releases)
 - [Quick Start Guide](https://livestream.cuetracker.app/guide.html)
 - [Linux and Docker instructions](https://livestream.cuetracker.app/self-host.html)
-- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — available now. The portable Windows ZIP remains unsigned.
+- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — the signed Windows option. The standalone installer and ZIP remain unsigned.
+- [Windows installer](https://livestream.cuetracker.app/downloads/CueTrackerLiveStream-Windows-Setup.exe) — installs shortcuts and updates the app while keeping saved data.
 
 ## Docker on Linux (AMD64 / x86_64)
 
@@ -16,7 +17,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.9.1
+  ghcr.io/cuetracker/livestream:3.10.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
@@ -44,6 +45,6 @@ Closing your browser leaves the app running. Stop app or the tray Quit action st
 
 ## Android phone camera test
 
-The [CueTracker Phone Camera test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.1/CueTrackerPhoneCamera-test-v0.1.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It is a debug-signed test build, not a Play Store release. Open it on the phone, grant Camera access, tap **Start phone camera**, then select **Android phone with CueTracker Phone Camera** in the LiveStream desktop app. No Android Studio is needed to test the APK.
+The [CueTracker Phone Camera v0.2 test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.2/CueTrackerPhoneCamera-test-v0.2.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It uses CueTracker's persistent test-release signer. Open it on the phone, grant Camera access, tap **Start phone camera**, then select **Android phone with CueTracker Phone Camera** in the desktop app. No Android Studio is needed. If v0.1 cannot update, uninstall it once before installing v0.2. The new build still needs a Galaxy S21 / Android 16 device check.
 
-The v3.9.1 app corrects rounded pocket rendering and calibration navigation. 8 Ball table pairing supports a local launch or a short connection code from a phone. The 8 Ball changes are currently on staging. Previous application releases remain available.
+The v3.10.0 app fixes phone JPEG feeds, preserves source credentials and adds a real outer-table outline, optional unknown-ball markers and clearer broadcast controls. Broadcasting requires a Start click. 8 Ball's per-camera pairing, card checkout without Link and repeatable Site Admin demo videos are on staging. Previous releases remain available.

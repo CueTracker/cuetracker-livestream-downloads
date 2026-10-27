@@ -1,6 +1,6 @@
 services:
   livestream:
-    image: ghcr.io/cuetracker/livestream:3.9.1
+    image: ghcr.io/cuetracker/livestream:3.10.0
     container_name: cuetracker-livestream
     restart: unless-stopped
     # Linux hosts: native LAN discovery and independently assigned stream ports.
