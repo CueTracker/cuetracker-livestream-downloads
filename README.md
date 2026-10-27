@@ -1,6 +1,6 @@
 # CueTracker LiveStream
 
-Official Windows and Linux downloads and a local Docker image. Camera video, screenshots and model training stay on your own computer or server.
+Official Windows and Linux downloads and a local Docker image. Camera video, captured frames and model training stay on your own computer or server.
 
 The source repository is private. Public releases contain the compiled Windows and Linux applications; the Docker image is assembled from the same signed compiled Linux application and does not contain the raw CueTracker Python source or test suite.
 
@@ -17,7 +17,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.12.0
+  ghcr.io/cuetracker/livestream:3.13.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
@@ -37,14 +37,14 @@ This is CueTracker's GitHub distribution repository, not an Ubuntu/Debian packag
 
 ## Local models and backups
 
-Each camera keeps separate Reds, Yellows, Black + White and Numbered Set models. Numbered models distinguish individual numbers 1–15 for Kelly Pool. Train from labelled camera screenshots and test fresh arrangements; no pretrained model for your camera is claimed.
+Each camera keeps separate Reds, Yellows, Black + White and Numbered Set models. Numbered models distinguish individual numbers 1–15 for Kelly Pool. Train from labelled camera frames and test fresh arrangements. Select **Improve this saved model** to add examples and retrain an existing model.
 
-SAVE BACKUP includes every managed camera, connection, model version, screenshot, label, calibration and saved setup in an encrypted `.ctbackup`. Keep the password safe. RESTORE BACKUP adds new workspaces without overwriting existing cameras.
+Open the header **Settings** cog for SAVE BACKUP, RESTORE BACKUP, broadcasting, app updates and Stop. The camera dropdown switches workspaces or adds another camera. SAVE BACKUP includes every managed camera, connection, model version, captured frame, label, calibration and saved setup in an encrypted `.ctbackup`. Keep the password safe. RESTORE BACKUP adds new workspaces without overwriting existing cameras.
 
 Closing your browser leaves the app running. Stop app or the tray Quit action stops managed cameras. Start the app again to restore its saved camera sessions.
 
 ## Android phone camera test
 
-The [CueTracker Phone Camera v0.3 test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.3/CueTrackerPhoneCamera-test-v0.3.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It is a separate companion, not the desktop setup or broadcasting app. Open it on the phone, grant Camera access, choose a supported camera/quality, tap **START PHONE CAMERA**, then find the phone in LiveStream. No Android Studio is needed. It uses the same signer as v0.2 and can update it in place. The new build still needs a Galaxy S21 / Android 16 device check. See the [dedicated phone guide](https://livestream.cuetracker.app/phone-setup.html).
+The [CueTracker Phone Camera v0.5 test APK](https://github.com/CueTracker/cuetracker-livestream-downloads/releases/download/phone-camera-test-v0.5/CueTrackerPhoneCamera-test-v0.5.apk) turns an Android phone on the same Wi-Fi into a local camera feed. It is a separate companion, not the desktop setup or broadcasting app. Open it on the phone, grant Camera access, choose a supported camera/quality, tap **START PHONE CAMERA**, then find the phone in LiveStream. No Android Studio is needed. It uses the same signer as earlier tests and can update them in place. Version 0.5 adds camera zoom, revises preview rotation, keeps fullscreen through rotation and groups status/help/private-address controls in Settings. The new build still needs a Galaxy S21 / Android 16 device check. See the [dedicated phone guide](https://livestream.cuetracker.app/phone-setup.html).
 
-The v3.11.0 app guides physical-table marking before the playing cloth, preserves saved settings, puts viewing controls after Finish, and improves gallery/fullscreen and phone setup. Broadcasting requires a Start click. Shared YouTube sign-in is prepared but still needs CueTracker's owner Google registration; stream-key broadcasting remains available. 8 Ball's per-camera pairing, card checkout without Link and repeatable Site Admin demo videos are on staging. Previous releases remain available.
+Version 3.13 fixes opening the private phone dashboard, simplifies camera management and Settings, and combines Train & Check with readable labels and zoom. Broadcasting requires a Start click. Shared YouTube sign-in remains gated pending provider verification; stream-key broadcasting is available. Microsoft Store packages are reviewed separately. Previous releases remain available.
