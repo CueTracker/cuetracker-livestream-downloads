@@ -7,7 +7,7 @@ The source repository is private. Public releases contain the compiled Windows a
 - [Downloads](https://github.com/CueTracker/cuetracker-livestream-downloads/releases)
 - [Quick Start Guide](https://livestream.cuetracker.app/guide.html)
 - [Linux and Docker instructions](https://livestream.cuetracker.app/self-host.html)
-- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — the signed Windows option. The standalone installer and ZIP remain unsigned.
+- [Microsoft Store](https://apps.microsoft.com/detail/9N4NQ5HN0PKX) — install and update through Microsoft Store.
 - [Windows installer](https://livestream.cuetracker.app/downloads/CueTrackerLiveStream-Windows-Setup.exe) — installs shortcuts and updates the app while keeping saved data.
 
 ## Docker on Linux (AMD64 / x86_64)
@@ -17,7 +17,7 @@ docker volume create cuetracker-data
 docker run -d --name cuetracker-livestream \
   --restart unless-stopped --network host \
   -v cuetracker-data:/data \
-  ghcr.io/cuetracker/livestream:3.11.0
+  ghcr.io/cuetracker/livestream:3.12.0
 ```
 
 Open http://127.0.0.1:8765 on the host. For a headless host, forward the dashboard with `ssh -L 8765:127.0.0.1:8765 USER@HOST`, then open that address on your computer. The dashboard provides a private phone/LAN link. Keep the link private, and do not forward ports to the internet. Each camera's local viewer has its own port; all cameras share one dashboard.
