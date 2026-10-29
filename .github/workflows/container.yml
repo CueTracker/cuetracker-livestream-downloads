@@ -57,9 +57,3 @@ jobs:
           python -c "import json,os; h=json.load(open('/tmp/health.json')); assert h['version']==os.environ['VERSION'] and h['local_only']"
           docker stop studio-test
           docker push "ghcr.io/cuetracker/livestream:$VERSION"
-      - name: Remove replaced untagged container versions
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: livestream
-          package-type: container
-          delete-only-untagged-versions: true
